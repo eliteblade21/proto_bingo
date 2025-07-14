@@ -5,8 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>DJ Music Bingo</title>
   <style>
+    /* Basic styling for layout and bingo cards */
     body { font-family: sans-serif; margin: 2em; }
     textarea { width: 100%; height: 100px; }
+
     .card {
       border: 1px solid #ccc;
       padding: 1em;
@@ -17,12 +19,14 @@
       text-align: center;
       page-break-inside: avoid;
     }
+
     .bingo-grid {
       display: grid;
       grid-template-columns: repeat(5, 1fr);
       gap: 5px;
       margin-top: 10px;
     }
+
     .bingo-grid div {
       border: 1px solid #000;
       padding: 6px;
@@ -36,6 +40,8 @@
       justify-content: center;
       text-align: center;
     }
+
+    /* Style for input and button elements */
     select, button, input[type="text"], input[type="number"] {
       margin: 0.5em 0;
       padding: 0.5em;
@@ -45,28 +51,36 @@
 <body>
   <h1>🎵 DJ Music Bingo Generator</h1>
 
+  <!-- Playlist name input -->
   <label>Enter playlist name:</label>
   <input type="text" id="playlistName" placeholder="e.g. 80s Night" />
 
+  <!-- Number of bingo cards input -->
   <label>Number of cards:</label>
   <input type="number" id="numCards" min="1" max="20" value="5" />
 
+  <!-- Textarea for user to paste song names -->
   <label>Paste up to 75 song names (one per line):</label>
   <textarea id="songList"></textarea>
 
+  <!-- Buttons to generate and save playlists -->
   <button onclick="generateBingoCards()">Generate Bingo Cards</button>
   <button onclick="savePlaylist()">Save Playlist</button>
 
+  <!-- Playlist selector and load button -->
   <h3>Saved Playlists:</h3>
   <select id="savedPlaylists"></select>
   <button onclick="loadPlaylist()">Load Selected</button>
 
+  <!-- Bingo cards will be added here -->
   <div id="bingoCards"></div>
 
   <script>
+    // Load saved playlists from localStorage
     const savedPlaylists = JSON.parse(localStorage.getItem('playlists') || '{}');
     const playlistSelect = document.getElementById('savedPlaylists');
 
+    // Populate the playlist dropdown with saved playlist names
     function populateSelect() {
       playlistSelect.innerHTML = '';
       Object.keys(savedPlaylists).forEach(name => {
@@ -77,80 +91,114 @@
       });
     }
 
+    // Generate a single bingo card with 24 random songs and a "FREE" in the center
     function generateCard(songs) {
       const shuffled = [...songs].sort(() => 0.5 - Math.random()).slice(0, 24);
-      shuffled.splice(12, 0, 'FREE');
+      shuffled.splice(12, 0, 'FREE'); // Add "FREE" in the middle
       return shuffled;
     }
 
+    // Generate and display bingo cards
     function generateBingoCards() {
-      const songs = document.getElementById('songList').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const songs = document.getElementById('songList').value
+        .split('\n')                   // Split by new lines
+        .map(s => s.trim())            // Remove extra whitespace
+        .filter(Boolean);             // Remove empty lines
+
       const bingoCardsContainer = document.getElementById('bingoCards');
       bingoCardsContainer.innerHTML = '';
+
+      // Must have at least 25 songs to fill a bingo card
       if (songs.length < 25) {
         alert('Please enter at least 25 songs.');
         return;
       }
+
       const numCards = parseInt(document.getElementById('numCards').value) || 5;
+
+      // Generate the requested number of cards
       for (let i = 0; i < numCards; i++) {
         const card = generateCard(songs);
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
+
         const grid = document.createElement('div');
         grid.className = 'bingo-grid';
+
+        // Create each grid cell with the song name
         card.forEach(song => {
           const cell = document.createElement('div');
           cell.textContent = song.length > 40 ? song.slice(0, 37) + '...' : song;
           cell.title = song;
           grid.appendChild(cell);
         });
+
         cardDiv.appendChild(grid);
         bingoCardsContainer.appendChild(cardDiv);
       }
     }
 
+    // Save playlist and generated cards to localStorage
     function savePlaylist() {
       const name = document.getElementById('playlistName').value.trim();
-      const songs = document.getElementById('songList').value.split('\n').map(s => s.trim()).filter(Boolean);
+      const songs = document.getElementById('songList').value
+        .split('\n')
+        .map(s => s.trim())
+        .filter(Boolean);
+
       if (!name || songs.length < 25) {
         alert('Please enter a playlist name and at least 25 songs.');
         return;
       }
+
       const numCards = parseInt(document.getElementById('numCards').value) || 5;
       const cards = [];
+
+      // Generate and store the card layouts
       for (let i = 0; i < numCards; i++) {
         cards.push(generateCard(songs));
       }
+
+      // Save to localStorage object
       savedPlaylists[name] = { songs, cards };
       localStorage.setItem('playlists', JSON.stringify(savedPlaylists));
       populateSelect();
       alert('Playlist saved!');
     }
 
+    // Load a playlist from the dropdown and display its cards
     function loadPlaylist() {
       const name = playlistSelect.value;
       const playlist = savedPlaylists[name];
       if (!playlist) return;
+
+      // Fill input fields with loaded data
       document.getElementById('playlistName').value = name;
       document.getElementById('songList').value = playlist.songs.join('\n');
+
       const bingoCardsContainer = document.getElementById('bingoCards');
       bingoCardsContainer.innerHTML = '';
+
+      // Render the stored cards
       playlist.cards.forEach(card => {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
         const grid = document.createElement('div');
         grid.className = 'bingo-grid';
+
         card.forEach(song => {
           const cell = document.createElement('div');
           cell.textContent = song.length > 40 ? song.slice(0, 37) + '...' : song;
           cell.title = song;
           grid.appendChild(cell);
         });
+
         cardDiv.appendChild(grid);
         bingoCardsContainer.appendChild(cardDiv);
       });
     }
 
+    // Initialize dropdown on page load
     populateSelect();
   </script>
 </body>
