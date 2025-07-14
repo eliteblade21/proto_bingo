@@ -36,7 +36,7 @@
       justify-content: center;
       text-align: center;
     }
-    select, button, input[type="text"] {
+    select, button, input[type="text"], input[type="number"] {
       margin: 0.5em 0;
       padding: 0.5em;
     }
@@ -47,6 +47,9 @@
 
   <label>Enter playlist name:</label>
   <input type="text" id="playlistName" placeholder="e.g. 80s Night" />
+
+  <label>Number of cards:</label>
+  <input type="number" id="numCards" min="1" max="20" value="5" />
 
   <label>Paste up to 75 song names (one per line):</label>
   <textarea id="songList"></textarea>
@@ -88,7 +91,8 @@
         alert('Please enter at least 25 songs.');
         return;
       }
-      for (let i = 0; i < 5; i++) {
+      const numCards = parseInt(document.getElementById('numCards').value) || 5;
+      for (let i = 0; i < numCards; i++) {
         const card = generateCard(songs);
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
@@ -112,8 +116,9 @@
         alert('Please enter a playlist name and at least 25 songs.');
         return;
       }
+      const numCards = parseInt(document.getElementById('numCards').value) || 5;
       const cards = [];
-      for (let i = 0; i < 5; i++) {
+      for (let i = 0; i < numCards; i++) {
         cards.push(generateCard(songs));
       }
       savedPlaylists[name] = { songs, cards };
