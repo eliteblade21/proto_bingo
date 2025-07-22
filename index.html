@@ -19,11 +19,12 @@
       padding: 1em;
       margin: 0.5em 1% 1em 1%;
       display: inline-block;
-      width: 48%; /* Adjust width to fit two cards per row */
+      width: 48%;
       vertical-align: top;
       text-align: center;
       page-break-inside: avoid;
       font-size: 14px;
+      position: relative;
     }
 
     .bingo-grid {
@@ -47,6 +48,20 @@
       text-align: center;
     }
 
+    .contact-info {
+      margin-top: 15px;
+      font-size: 12px;
+      color: #555;
+      border-top: 1px solid #ccc;
+      padding-top: 5px;
+      text-align: center;
+    }
+
+    .contact-info a {
+      color: #333;
+      text-decoration: none;
+    }
+
     select, button, input[type="text"], input[type="number"] {
       margin: 0.5em 0;
       padding: 0.5em;
@@ -63,7 +78,7 @@
       .card {
         page-break-inside: avoid;
         break-inside: avoid;
-        width: 75%; /* Two cards per row on print */
+        width: 75%;
         margin: 1% 1% 2em 1%;
         font-size: 16px;
         display: inline-block;
@@ -77,7 +92,7 @@
         gap: 5px;
       }
       .bingo-grid div {
-        height: 70px;  /* Adjusted height for print */
+        height: 70px;
         font-size: 16px;
         line-height: 1.2em;
         padding: 6px;
@@ -88,21 +103,13 @@
         text-align: center;
         word-wrap: break-word;
       }
-
-      /* Ensure that cards are properly spaced across multiple pages */
-      @page {
-        size: auto;
-        margin: 1cm;
-      }
-
-      .bingo-grid {
-        grid-template-columns: repeat(5, 1fr);
-      }
-
-      /* Prevent page breaks in the middle of a card */
-      .card {
-        break-inside: avoid;
-        page-break-inside: avoid;
+      .contact-info {
+        margin-top: 20px;
+        font-size: 12px;
+        color: #555;
+        border-top: 1px solid #ccc;
+        padding-top: 5px;
+        text-align: center;
       }
     }
   </style>
@@ -143,10 +150,10 @@
       });
     }
 
-    function generateCard(songs) {
+    function generateCard(songs, playlistName) {
       const shuffled = [...songs].sort(() => 0.5 - Math.random()).slice(0, 24);
       shuffled.splice(12, 0, 'DJ CHAD'); // Branded free space
-      return shuffled;
+      return { shuffled, playlistName };
     }
 
     function generateBingoCards() {
@@ -154,26 +161,31 @@
         .split('\n')
         .map(s => s.trim())
         .filter(Boolean);
+      const playlistName = document.getElementById('playlistName').value.trim();
 
       const bingoCardsContainer = document.getElementById('bingoCards');
       bingoCardsContainer.innerHTML = '';
 
-      if (songs.length < 25) {
-        alert('Please enter at least 25 songs.');
+      if (songs.length < 25 || !playlistName) {
+        alert('Please enter at least 25 songs and a playlist name.');
         return;
       }
 
       const numCards = parseInt(document.getElementById('numCards').value) || 5;
 
       for (let i = 0; i < numCards; i++) {
-        const card = generateCard(songs);
+        const { shuffled, playlistName } = generateCard(songs, playlistName);
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
+
+        const title = document.createElement('h2');
+        title.textContent = playlistName;
+        cardDiv.appendChild(title);
 
         const grid = document.createElement('div');
         grid.className = 'bingo-grid';
 
-        card.forEach(song => {
+        shuffled.forEach(song => {
           const cell = document.createElement('div');
           cell.textContent = song.length > 40 ? song.slice(0, 37) + '...' : song;
           cell.title = song;
@@ -181,6 +193,16 @@
         });
 
         cardDiv.appendChild(grid);
+
+        const contactInfo = document.createElement('div');
+        contactInfo.className = 'contact-info';
+        contactInfo.innerHTML = `
+          <p>Contact Me: <a href="mailto:info@djchad.com">info@djchad.com</a><br>
+          Website: <a href="https://www.djchad.com" target="_blank">www.djchad.com</a><br>
+          Phone: (123) 456-7890</p>
+        `;
+        cardDiv.appendChild(contactInfo);
+
         bingoCardsContainer.appendChild(cardDiv);
       }
     }
@@ -201,7 +223,7 @@
       const cards = [];
 
       for (let i = 0; i < numCards; i++) {
-        cards.push(generateCard(songs));
+        cards.push(generateCard(songs, name));
       }
 
       savedPlaylists[name] = { songs, cards };
@@ -224,22 +246,8 @@
       playlist.cards.forEach(card => {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
-        const grid = document.createElement('div');
-        grid.className = 'bingo-grid';
+        const title = document.createElement('h2');
+        title.textContent = card.playlistName;
+        cardDiv.appendChild(title);
 
-        card.forEach(song => {
-          const cell = document.createElement('div');
-          cell.textContent = song.length > 40 ? song.slice(0, 37) + '...' : song;
-          cell.title = song;
-          grid.appendChild(cell);
-        });
-
-        cardDiv.appendChild(grid);
-        bingoCardsContainer.appendChild(cardDiv);
-      });
-    }
-
-    populateSelect();
-  </script>
-</body>
-</html>
+        const grid = doc
