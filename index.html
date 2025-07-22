@@ -17,7 +17,7 @@
       vertical-align: top;
       text-align: center;
       page-break-inside: avoid;
-      font-size: 14px; /* bigger font for readability */
+      font-size: 14px;
     }
 
     .bingo-grid {
@@ -55,7 +55,6 @@
       }
       .card {
         page-break-inside: avoid;
-        page-break-after: auto;
         break-inside: avoid;
         width: 48%;
         margin: 1% 1% 2em 1%;
@@ -66,10 +65,6 @@
       .bingo-grid div {
         height: 70px;
         font-size: 16px;
-      }
-      /* Page break after every 2 cards */
-      .card:nth-child(2n) {
-        page-break-after: always;
       }
     }
   </style>
