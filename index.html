@@ -19,7 +19,7 @@
       padding: 1em;
       margin: 0.5em 1% 1em 1%;
       display: inline-block;
-      width: 48%;
+      width: 48%; /* Adjust width to fit two cards per row */
       vertical-align: top;
       text-align: center;
       page-break-inside: avoid;
@@ -78,7 +78,7 @@
       .card {
         page-break-inside: avoid;
         break-inside: avoid;
-        width: 75%;
+        width: 48%; /* Two cards per row on print */
         margin: 1% 1% 2em 1%;
         font-size: 16px;
         display: inline-block;
@@ -92,7 +92,7 @@
         gap: 5px;
       }
       .bingo-grid div {
-        height: 70px;
+        height: 70px; /* Adjusted height for print */
         font-size: 16px;
         line-height: 1.2em;
         padding: 6px;
@@ -150,10 +150,10 @@
       });
     }
 
-    function generateCard(songs, playlistName) {
+    function generateCard(songs) {
       const shuffled = [...songs].sort(() => 0.5 - Math.random()).slice(0, 24);
       shuffled.splice(12, 0, 'DJ CHAD'); // Branded free space
-      return { shuffled, playlistName };
+      return shuffled;
     }
 
     function generateBingoCards() {
@@ -161,8 +161,8 @@
         .split('\n')
         .map(s => s.trim())
         .filter(Boolean);
-      const playlistName = document.getElementById('playlistName').value.trim();
 
+      const playlistName = document.getElementById('playlistName').value.trim();
       const bingoCardsContainer = document.getElementById('bingoCards');
       bingoCardsContainer.innerHTML = '';
 
@@ -174,7 +174,7 @@
       const numCards = parseInt(document.getElementById('numCards').value) || 5;
 
       for (let i = 0; i < numCards; i++) {
-        const { shuffled, playlistName } = generateCard(songs, playlistName);
+        const card = generateCard(songs);
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
 
@@ -185,7 +185,7 @@
         const grid = document.createElement('div');
         grid.className = 'bingo-grid';
 
-        shuffled.forEach(song => {
+        card.forEach(song => {
           const cell = document.createElement('div');
           cell.textContent = song.length > 40 ? song.slice(0, 37) + '...' : song;
           cell.title = song;
@@ -223,7 +223,7 @@
       const cards = [];
 
       for (let i = 0; i < numCards; i++) {
-        cards.push(generateCard(songs, name));
+        cards.push(generateCard(songs));
       }
 
       savedPlaylists[name] = { songs, cards };
@@ -247,7 +247,23 @@
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
         const title = document.createElement('h2');
-        title.textContent = card.playlistName;
+        title.textContent = name;
         cardDiv.appendChild(title);
 
-        const grid = doc
+        const grid = document.createElement('div');
+        grid.className = 'bingo-grid';
+
+        card.forEach(song => {
+          const cell = document.createElement('div');
+          cell.textContent = song.length > 40 ? song.slice(0, 37) + '...' : song;
+          cell.title = song;
+          grid.appendChild(cell);
+        });
+
+        cardDiv.appendChild(grid);
+
+        const contactInfo = document.createElement('div');
+        contactInfo.className = 'contact-info';
+        contactInfo.innerHTML = `
+          <p>Contact Me: <a href="mailto:info@djchad.com">info@djchad.com</a><br>
+          Website: <
