@@ -19,7 +19,7 @@
       padding: 1em;
       margin: 0.5em 1% 1em 1%;
       display: inline-block;
-      width: 48%; /* Adjust width to fit two cards per row */
+      width: 48%;
       vertical-align: top;
       text-align: center;
       page-break-inside: avoid;
@@ -68,20 +68,34 @@
     }
 
     @media print {
-      button, input, textarea, select, label, h3 {
-        display: none;
+      /* Hide all UI and controls when printing */
+      button, input, textarea, select, label, h3, form, .controls, #controls {
+        display: none !important;
       }
       body {
         margin: 1cm;
-        font-size: 14px;
+        font-size: 15px;
+      }
+      h1 {
+        display: block;
+        font-size: 20pt;
+        margin-bottom: 1cm;
+        text-align: center;
+      }
+      #bingoCards {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2%;
+        justify-content: flex-start;
       }
       .card {
+        width: 48% !important;
+        box-sizing: border-box;
+        margin: 1% 1% 2em 1% !important;
         page-break-inside: avoid;
         break-inside: avoid;
-        width: 48%; /* Two cards per row on print */
-        margin: 1% 1% 2em 1%;
+        display: block;
         font-size: 16px;
-        display: inline-block;
         vertical-align: top;
         text-align: center;
         height: auto;
@@ -92,7 +106,7 @@
         gap: 5px;
       }
       .bingo-grid div {
-        height: 70px; /* Adjusted height for print */
+        height: 70px;
         font-size: 16px;
         line-height: 1.2em;
         padding: 6px;
@@ -101,7 +115,9 @@
         align-items: center;
         justify-content: center;
         text-align: center;
-        word-wrap: break-word;
+        white-space: normal !important;
+        overflow-wrap: break-word !important;
+        text-overflow: unset !important;
       }
       .contact-info {
         margin-top: 20px;
@@ -137,6 +153,7 @@
   <div id="bingoCards"></div>
 
   <script>
+    // Load playlists from localStorage
     const savedPlaylists = JSON.parse(localStorage.getItem('playlists') || '{}');
     const playlistSelect = document.getElementById('savedPlaylists');
 
@@ -150,6 +167,7 @@
       });
     }
 
+    // Always allow full song text for both screen and print (truncation removed)
     function generateCard(songs) {
       const shuffled = [...songs].sort(() => 0.5 - Math.random()).slice(0, 24);
       shuffled.splice(12, 0, 'DJ CHAD'); // Branded free space
@@ -187,7 +205,7 @@
 
         card.forEach(song => {
           const cell = document.createElement('div');
-          cell.textContent = song.length > 40 ? song.slice(0, 37) + '...' : song;
+          cell.textContent = song; // No truncation
           cell.title = song;
           grid.appendChild(cell);
         });
@@ -255,7 +273,7 @@
 
         card.forEach(song => {
           const cell = document.createElement('div');
-          cell.textContent = song.length > 40 ? song.slice(0, 37) + '...' : song;
+          cell.textContent = song; // No truncation
           cell.title = song;
           grid.appendChild(cell);
         });
@@ -266,4 +284,17 @@
         contactInfo.className = 'contact-info';
         contactInfo.innerHTML = `
           <p>Contact Me: <a href="mailto:info@djchad.com">info@djchad.com</a><br>
-          Website: <
+          Website: <a href="https://www.djchad.com" target="_blank">www.djchad.com</a><br>
+          Phone: (123) 456-7890</p>
+        `;
+        cardDiv.appendChild(contactInfo);
+
+        bingoCardsContainer.appendChild(cardDiv);
+      });
+    }
+
+    // Populate playlists on load
+    populateSelect();
+  </script>
+</body>
+</html>
