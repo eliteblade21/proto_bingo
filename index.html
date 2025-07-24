@@ -66,7 +66,8 @@
         display: none !important;
       }
       body {
-        margin: 1cm;
+        /* Reduce default margin for more printable area; increase if you need more paper edge space */
+        margin: 0.3cm;
         font-size: 20px !important;
       }
       h1 {
@@ -79,12 +80,16 @@
         display: flex;
         flex-wrap: wrap;
         gap: 2%;
-        justify-content: flex-start;
+        justify-content: center;   /* Center the cards horizontally */
+        align-items: flex-start;   /* Top-align cards */
+        width: 100vw;              /* Use full printable page width */
+        margin: 0 auto;            /* Center the grid container */
       }
       .card {
         /* === Card width for print ===
            Change to fit more or fewer cards per row (e.g. 32% for 3 cards per row, 48% for 2 cards per row) */
         width: 48% !important;
+        /* To change card width for print, adjust the value above. */
         box-sizing: border-box;
         margin: 1% 1% 2em 1% !important;
         page-break-inside: avoid;
@@ -93,6 +98,7 @@
         /* === Card font size for print ===
            Change to make card text larger or smaller when printing */
         font-size: 24px !important;
+        /* To change card font size for print, adjust the value above. */
         vertical-align: top;
         text-align: center;
         height: auto;
@@ -108,9 +114,12 @@
            - Adjust 'font-size' for the text size in each box
            - Adjust 'padding' for spacing inside the box
            - Manually change these for best results on your printer */
-        height: 40px !important;      /* Change for bigger/smaller boxes */
-        font-size: 18px !important;    /* Change for bigger/smaller text */
-        padding: 70px !important;      /* Change for more/less space in each box */
+        height: 120px !important;      /* Change for bigger/smaller boxes */
+        /* To make boxes taller, increase height. To make shorter, decrease. */
+        font-size: 28px !important;    /* Change for bigger/smaller text */
+        /* To make text bigger, increase font-size. To make smaller, decrease. */
+        padding: 18px !important;      /* Change for more/less space in each box */
+        /* To add more space inside box, increase padding. Less space, decrease. */
         border: 1px solid #000;
         display: flex;
         align-items: center;
