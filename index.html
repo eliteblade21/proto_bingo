@@ -82,6 +82,8 @@
         justify-content: flex-start;
       }
       .card {
+        /* === Card width for print ===
+           Change to fit more or fewer cards per row (e.g. 32% for 3 cards per row, 48% for 2 cards per row) */
         width: 48% !important;
         box-sizing: border-box;
         margin: 1% 1% 2em 1% !important;
@@ -89,7 +91,7 @@
         break-inside: avoid;
         display: block;
         /* === Card font size for print ===
-           Adjust the number below to change the font size of the entire card when printing */
+           Change to make card text larger or smaller when printing */
         font-size: 24px !important;
         vertical-align: top;
         text-align: center;
@@ -102,13 +104,13 @@
       }
       .bingo-grid div {
         /* === Bingo cell/box size for print ===
-           Adjust 'height' for taller or shorter bingo squares.
-           Adjust 'font-size' for larger or smaller text inside each box.
-           Adjust 'padding' for more or less space inside each box.
-           You can manually tweak these values below for best results on your own printer. */
-        height: 120px !important;      /* Increase or decrease for bigger/smaller boxes */
-        font-size: 14px !important;    /* Increase or decrease for bigger/smaller text */
-        padding: 18px !important;      /* Adjust space inside each box */
+           - Adjust 'height' for box height (taller/shorter squares)
+           - Adjust 'font-size' for the text size in each box
+           - Adjust 'padding' for spacing inside the box
+           - Manually change these for best results on your printer */
+        height: 120px !important;      /* Change for bigger/smaller boxes */
+        font-size: 28px !important;    /* Change for bigger/smaller text */
+        padding: 18px !important;      /* Change for more/less space in each box */
         border: 1px solid #000;
         display: flex;
         align-items: center;
