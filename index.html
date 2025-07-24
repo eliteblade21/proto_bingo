@@ -18,11 +18,11 @@
       padding: 1em;
       margin: 0.5em 1% 1em 1%;
       display: inline-block;
-      width: 40%;        /* smaller for screen */
+      width: 40%;
       vertical-align: top;
       text-align: center;
       page-break-inside: avoid;
-      font-size: 12px;   /* smaller for screen */
+      font-size: 12px;
       position: relative;
     }
     .bingo-grid {
@@ -34,9 +34,9 @@
     .bingo-grid div {
       border: 1px solid #000;
       padding: 6px;
-      font-size: 11px;   /* smaller for screen */
+      font-size: 11px;
       line-height: 1.2em;
-      height: 40px;      /* smaller for screen */
+      height: 40px;
       overflow: hidden;
       text-overflow: ellipsis;
       display: flex;
@@ -61,12 +61,13 @@
       padding: 0.5em;
     }
     @media print {
+      /* Hide controls when printing */
       button, input, textarea, select, label, h3, form, .controls, #controls {
         display: none !important;
       }
       body {
         margin: 1cm;
-        font-size: 15px !important;
+        font-size: 20px !important;
       }
       h1 {
         display: block;
@@ -81,13 +82,15 @@
         justify-content: flex-start;
       }
       .card {
-        width: 50% !important;
+        width: 48% !important;
         box-sizing: border-box;
         margin: 1% 1% 2em 1% !important;
         page-break-inside: avoid;
         break-inside: avoid;
         display: block;
-        font-size: 24px !important;    /* Larger on print */
+        /* === Card font size for print ===
+           Adjust the number below to change the font size of the entire card when printing */
+        font-size: 24px !important;
         vertical-align: top;
         text-align: center;
         height: auto;
@@ -95,13 +98,17 @@
       .bingo-grid {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
-        gap: 3px;
+        gap: 5px;
       }
       .bingo-grid div {
-        height: 120px !important;      /* Much bigger boxes */
-        font-size: 28px !important;    /* Larger text on print */
-        line-height: 1.2em;
-        padding: 18px !important;
+        /* === Bingo cell/box size for print ===
+           Adjust 'height' for taller or shorter bingo squares.
+           Adjust 'font-size' for larger or smaller text inside each box.
+           Adjust 'padding' for more or less space inside each box.
+           You can manually tweak these values below for best results on your own printer. */
+        height: 120px !important;      /* Increase or decrease for bigger/smaller boxes */
+        font-size: 28px !important;    /* Increase or decrease for bigger/smaller text */
+        padding: 18px !important;      /* Adjust space inside each box */
         border: 1px solid #000;
         display: flex;
         align-items: center;
@@ -159,7 +166,6 @@
       });
     }
 
-    // Always allow full song text for both screen and print (truncation removed)
     function generateCard(songs) {
       const shuffled = [...songs].sort(() => 0.5 - Math.random()).slice(0, 24);
       shuffled.splice(12, 0, 'DJ CHAD'); // Branded free space
@@ -197,7 +203,7 @@
 
         card.forEach(song => {
           const cell = document.createElement('div');
-          cell.textContent = song; // No truncation
+          cell.textContent = song;
           cell.title = song;
           grid.appendChild(cell);
         });
@@ -265,7 +271,7 @@
 
         card.forEach(song => {
           const cell = document.createElement('div');
-          cell.textContent = song; // No truncation
+          cell.textContent = song;
           cell.title = song;
           grid.appendChild(cell);
         });
