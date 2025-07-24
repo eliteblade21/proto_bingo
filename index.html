@@ -66,7 +66,6 @@
         display: none !important;
       }
       body {
-        /* Reduce default margin for more printable area; increase if you need more paper edge space */
         margin: 0.3cm;
         font-size: 20px !important;
       }
@@ -77,31 +76,24 @@
         text-align: center;
       }
       #bingoCards {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 2%;
-        justify-content: center;   /* Center the cards horizontally */
-        align-items: flex-start;   /* Top-align cards */
-        width: 100vw;              /* Use full printable page width */
-        margin: 0 auto;            /* Center the grid container */
+        display: block;  /* Stack cards vertically */
+        width: 100vw;
+        margin: 0 auto;
       }
       .card {
-        /* === Card width for print ===
-           Change to fit more or fewer cards per row (e.g. 32% for 3 cards per row, 48% for 2 cards per row) */
-        width: 48% !important;
-        /* To change card width for print, adjust the value above. */
+        width: 100% !important;          /* Each card takes full width of the page */
         box-sizing: border-box;
-        margin: 1% 1% 2em 1% !important;
+        margin: 0 0 2em 0 !important;    /* Spacing below each card */
         page-break-inside: avoid;
         break-inside: avoid;
         display: block;
-        /* === Card font size for print ===
-           Change to make card text larger or smaller when printing */
         font-size: 24px !important;
-        /* To change card font size for print, adjust the value above. */
         vertical-align: top;
         text-align: center;
         height: auto;
+      }
+      .card:nth-of-type(2n) {
+        page-break-after: always;        /* After every 2nd card, start new page */
       }
       .bingo-grid {
         display: grid;
@@ -109,17 +101,9 @@
         gap: 5px;
       }
       .bingo-grid div {
-        /* === Bingo cell/box size for print ===
-           - Adjust 'height' for box height (taller/shorter squares)
-           - Adjust 'font-size' for the text size in each box
-           - Adjust 'padding' for spacing inside the box
-           - Manually change these for best results on your printer */
-        height: 120px !important;      /* Change for bigger/smaller boxes */
-        /* To make boxes taller, increase height. To make shorter, decrease. */
-        font-size: 28px !important;    /* Change for bigger/smaller text */
-        /* To make text bigger, increase font-size. To make smaller, decrease. */
-        padding: 18px !important;      /* Change for more/less space in each box */
-        /* To add more space inside box, increase padding. Less space, decrease. */
+        height: 120px !important;
+        font-size: 28px !important;
+        padding: 18px !important;
         border: 1px solid #000;
         display: flex;
         align-items: center;
