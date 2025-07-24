@@ -65,8 +65,8 @@
         display: none !important;
       }
       body {
-        margin: 0.3cm;
-        font-size: 16px !important; /* Smaller body text for print */
+        margin: 1cm;
+        font-size: 16px !important;
       }
       h1 {
         display: block;
@@ -75,24 +75,25 @@
         text-align: center;
       }
       #bingoCards {
-        display: block;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 2%;
+        justify-content: center;
+        align-items: flex-start;
         width: 100vw;
         margin: 0 auto;
       }
       .card {
-        width: 100% !important;
+        width: 48% !important;              /* Two cards per row */
         box-sizing: border-box;
-        margin: 0 0 2em 0 !important;
+        margin: 1% 1% 2em 1% !important;    /* space between cards */
         page-break-inside: avoid;
         break-inside: avoid;
         display: block;
-        font-size: 18px !important; /* Smaller card text for print */
+        font-size: 18px !important;
         vertical-align: top;
         text-align: center;
         height: auto;
-      }
-      .card:nth-of-type(2n) {
-        page-break-after: always;
       }
       .bingo-grid {
         display: grid;
@@ -101,7 +102,7 @@
       }
       .bingo-grid div {
         height: 120px !important;
-        font-size: 16px !important; /* Smaller bingo box text for print */
+        font-size: 16px !important;
         padding: 18px !important;
         border: 1px solid #000;
         display: flex;
