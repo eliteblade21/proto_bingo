@@ -61,39 +61,38 @@
       padding: 0.5em;
     }
     @media print {
-      /* Hide controls when printing */
       button, input, textarea, select, label, h3, form, .controls, #controls {
         display: none !important;
       }
       body {
         margin: 0.3cm;
-        font-size: 20px !important;
+        font-size: 16px !important; /* Smaller body text for print */
       }
       h1 {
         display: block;
-        font-size: 24pt;
+        font-size: 20pt;
         margin-bottom: 1cm;
         text-align: center;
       }
       #bingoCards {
-        display: block;  /* Stack cards vertically */
+        display: block;
         width: 100vw;
         margin: 0 auto;
       }
       .card {
-        width: 100% !important;          /* Each card takes full width of the page */
+        width: 100% !important;
         box-sizing: border-box;
-        margin: 0 0 2em 0 !important;    /* Spacing below each card */
+        margin: 0 0 2em 0 !important;
         page-break-inside: avoid;
         break-inside: avoid;
         display: block;
-        font-size: 24px !important;
+        font-size: 18px !important; /* Smaller card text for print */
         vertical-align: top;
         text-align: center;
         height: auto;
       }
       .card:nth-of-type(2n) {
-        page-break-after: always;        /* After every 2nd card, start new page */
+        page-break-after: always;
       }
       .bingo-grid {
         display: grid;
@@ -102,7 +101,7 @@
       }
       .bingo-grid div {
         height: 120px !important;
-        font-size: 28px !important;
+        font-size: 16px !important; /* Smaller bingo box text for print */
         padding: 18px !important;
         border: 1px solid #000;
         display: flex;
@@ -115,7 +114,7 @@
       }
       .contact-info {
         margin-top: 20px;
-        font-size: 14px;
+        font-size: 12px;
         color: #555;
         border-top: 1px solid #ccc;
         padding-top: 5px;
