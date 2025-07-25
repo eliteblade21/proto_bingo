@@ -77,16 +77,16 @@
       #bingoCards {
         display: flex;
         flex-wrap: wrap;
-        gap: 2%;
-        justify-content: center;
+        gap: 0.125in; /* 1/8 inch gap between cards */
+        justify-content: flex-start;
         align-items: flex-start;
         width: 100vw;
         margin: 0 auto;
       }
       .card {
-        width: 48% !important;              /* Two cards per row */
+        width: 48% !important;
         box-sizing: border-box;
-        margin: 1% 1% 2em 1% !important;    /* space between cards */
+        margin: 0 !important;
         page-break-inside: avoid;
         break-inside: avoid;
         display: block;
