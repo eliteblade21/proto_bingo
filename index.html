@@ -51,10 +51,14 @@
       border-top: 1px solid #ccc;
       padding-top: 5px;
       text-align: center;
+      width: 100%;
+      box-sizing: border-box;
+      display: block;
     }
     .contact-info a {
       color: #333;
       text-decoration: none;
+      word-break: break-word;
     }
     select, button, input[type="text"], input[type="number"] {
       margin: 0.5em 0;
@@ -115,11 +119,14 @@
       }
       .contact-info {
         margin-top: 20px;
-        font-size: 12px;
+        font-size: 14px;
         color: #555;
         border-top: 1px solid #ccc;
-        padding-top: 5px;
+        padding-top: 10px;
         text-align: center;
+        width: 100%;
+        box-sizing: border-box;
+        display: block;
       }
     }
   </style>
@@ -208,11 +215,11 @@
         const contactInfo = document.createElement('div');
         contactInfo.className = 'contact-info';
         contactInfo.innerHTML = `
-          <p>
-            Bookings: <a href="mailto:bookings@djdickjones.com">djdickjones.com</a><br>
-            Website: <a href="tel:6477077166">Call or text 647-707-7166</a><br>
-            Phone: Get your downloadable mixtape on soundcloud@djdickjones.com
-          </p>
+          <span>
+            Bookings: <a href="mailto:bookings@djdickjones.com">djdickjones.com</a>.<br>
+            Call or text: <a href="tel:6477077166">647-707-7166</a><br>
+            Get your downloadable mixtape on soundcloud@djdickjones.com
+          </span>
         `;
         cardDiv.appendChild(contactInfo);
 
@@ -278,11 +285,11 @@
         const contactInfo = document.createElement('div');
         contactInfo.className = 'contact-info';
         contactInfo.innerHTML = `
-          <p>
-            Bookings: <a href="mailto:bookings@djdickjones.com">djdickjones.com</a><br>
-            Website: <a href="tel:6477077166">Call or text 647-707-7166</a><br>
-            Phone: Get your downloadable mixtape on soundcloud@djdickjones.com
-          </p>
+          <span>
+            Bookings: <a href="mailto:bookings@djdickjones.com">djdickjones.com</a>.<br>
+            Call or text: <a href="tel:6477077166">647-707-7166</a><br>
+            Get your downloadable mixtape on soundcloud@djdickjones.com
+          </span>
         `;
         cardDiv.appendChild(contactInfo);
 
