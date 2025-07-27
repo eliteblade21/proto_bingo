@@ -8,13 +8,19 @@
     body {
       font-family: sans-serif;
       margin: 2em;
+      background: #181818;
+      color: #fff;
     }
     textarea {
       width: 100%;
       height: 100px;
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
     }
     .card {
-      border: 1px solid #ccc;
+      border: 2.5px solid #fff;
+      background: #000;
       padding: 1em 1em 1em 1em;
       margin: 0.5em 1% 1em 1%;
       display: inline-block;
@@ -25,6 +31,7 @@
       font-size: 12px;
       position: relative;
       box-sizing: border-box;
+      color: #fff;
     }
     .card-title {
       font-size: 1.5em;
@@ -33,16 +40,17 @@
       margin-top: 0.3em;
       text-align: center;
       letter-spacing: 1px;
+      color: #fff;
     }
     .card-title-hr {
       border: none;
-      border-top: 2px solid #333;
+      border-top: 2px solid #fff;
       margin: 0.2em 0 0.4em 0;
       width: 100%;
     }
     .rockstar-row {
       display: flex;
-      justify-content: flex-start; /* left offset */
+      justify-content: flex-start;
       align-items: flex-end;
       margin-bottom: -0.3em;
     }
@@ -57,7 +65,7 @@
       margin-right: 0.6em;
     }
     .bingo-label {
-      display: none; /* Hide the old "BINGO" row */
+      display: none;
     }
     .bingo-header-row {
       display: grid;
@@ -69,11 +77,11 @@
       font-size: 1.3em;
       font-weight: bold;
       text-align: center;
-      color: #1a1a1a;
+      color: #fff;
       padding: 2px 0 2px 0;
       letter-spacing: 0.1em;
-      border-bottom: 2.5px solid #1a1a1a;
-      background: #f5f5f5;
+      border-bottom: 2.5px solid #a600ff;
+      background: #181818;
     }
     .bingo-grid {
       display: grid;
@@ -82,7 +90,7 @@
       margin-top: 10px;
     }
     .bingo-grid div {
-      border: 1px solid #000;
+      border: 1px solid #a600ff;
       padding: 6px;
       font-size: 11px;
       line-height: 1.2em;
@@ -93,12 +101,13 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      background: #fff;
+      background: #111;
+      color: #fff;
     }
     .logo-cell {
       background: #222;
       color: #fff;
-      border: 2px solid #222;
+      border: 2px solid #a600ff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -114,12 +123,13 @@
       max-width: 90%;
       max-height: 28px;
       object-fit: contain;
+      filter: brightness(0) invert(1) drop-shadow(0 0 6px #a600ff);
     }
     .contact-info {
       margin-top: 15px;
       font-size: 16px;
-      color: #222;
-      border-top: 1px solid #ccc;
+      color: #fff;
+      border-top: 1px solid #a600ff;
       padding-top: 10px;
       text-align: center;
       width: 100%;
@@ -129,7 +139,7 @@
       letter-spacing: 0.5px;
     }
     .contact-info a {
-      color: #333;
+      color: #a600ff;
       text-decoration: none;
       word-break: break-word;
       font-weight: bold;
@@ -137,14 +147,21 @@
     select, button, input[type="text"], input[type="number"] {
       margin: 0.5em 0;
       padding: 0.5em;
+      background: #222;
+      color: #fff;
+      border: 1px solid #444;
     }
     @media print {
+      body, .card, .bingo-header-cell, .bingo-grid div, .logo-cell, .contact-info {
+        background: #fff !important;
+        color: #000 !important;
+        border-color: #000 !important;
+      }
+      .logo-cell img {
+        filter: none !important;
+      }
       button, input, textarea, select, label, h3, form, .controls, #controls, h1 {
         display: none !important;
-      }
-      body {
-        margin: 1cm;
-        font-size: 16px !important;
       }
       #bingoCards {
         display: flex;
@@ -172,7 +189,7 @@
         margin-bottom: 0.15em !important;
       }
       .card-title-hr {
-        border-top: 2.5px solid #333;
+        border-top: 2.5px solid #333 !important;
         margin: 0.2em 0 0.4em 0 !important;
         width: 100%;
       }
@@ -180,6 +197,7 @@
         font-size: 1.6em !important;
         margin-left: 4px !important;
         margin-bottom: 0.06em !important;
+        color: #a600ff !important;
       }
       .bingo-header-cell {
         font-size: 2em !important;
@@ -193,12 +211,13 @@
         height: 120px !important;
         font-size: 16px !important;
         padding: 18px !important;
-        border: 1px solid #000;
+        border: 1px solid #000 !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         text-align: center !important;
         background: #fff !important;
+        color: #000 !important;
         overflow: hidden !important;
         box-sizing: border-box !important;
       }
@@ -212,13 +231,14 @@
         max-width: 100px !important;
         max-height: 80px !important;
         object-fit: contain !important;
+        filter: none !important;
       }
       .contact-info {
         margin-top: 20px;
         font-size: 20px !important;
         color: #111 !important;
-        border-top: 2px solid #222;
-        padding-top: 12px;
+        border-top: 2px solid #222 !important;
+        padding-top: 12px !important;
         text-align: center;
         width: 100%;
         box-sizing: border-box;
