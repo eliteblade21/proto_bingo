@@ -15,7 +15,7 @@
     }
     .card {
       border: 1px solid #ccc;
-      padding: 1em;
+      padding: 1em 1em 1em 1em;
       margin: 0.5em 1% 1em 1%;
       display: inline-block;
       width: 40%;
@@ -24,6 +24,56 @@
       page-break-inside: avoid;
       font-size: 12px;
       position: relative;
+      box-sizing: border-box;
+    }
+    .card-title {
+      font-size: 1.5em;
+      font-weight: bold;
+      margin-bottom: 0.15em;
+      margin-top: 0.3em;
+      text-align: center;
+      letter-spacing: 1px;
+    }
+    .card-title-hr {
+      border: none;
+      border-top: 2px solid #333;
+      margin: 0.2em 0 0.4em 0;
+      width: 100%;
+    }
+    .rockstar-row {
+      display: flex;
+      justify-content: flex-start; /* left offset */
+      align-items: flex-end;
+      margin-bottom: -0.3em;
+    }
+    .rockstar-label {
+      font-size: 1.3em;
+      font-weight: bold;
+      color: #a600ff;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 0.08em;
+      margin-left: 2px;
+      margin-right: 0.6em;
+    }
+    .bingo-label {
+      display: none; /* Hide the old "BINGO" row */
+    }
+    .bingo-header-row {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      margin-bottom: 1px;
+      margin-top: 4px;
+    }
+    .bingo-header-cell {
+      font-size: 1.3em;
+      font-weight: bold;
+      text-align: center;
+      color: #1a1a1a;
+      padding: 2px 0 2px 0;
+      letter-spacing: 0.1em;
+      border-bottom: 2.5px solid #1a1a1a;
+      background: #f5f5f5;
     }
     .bingo-grid {
       display: grid;
@@ -117,10 +167,26 @@
         text-align: center;
         height: auto;
       }
-      .bingo-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 5px;
+      .card-title {
+        font-size: 1.7em !important;
+        margin-bottom: 0.15em !important;
+      }
+      .card-title-hr {
+        border-top: 2.5px solid #333;
+        margin: 0.2em 0 0.4em 0 !important;
+        width: 100%;
+      }
+      .rockstar-label {
+        font-size: 1.6em !important;
+        margin-left: 4px !important;
+        margin-bottom: 0.06em !important;
+      }
+      .bingo-header-cell {
+        font-size: 2em !important;
+        padding: 5px 0 5px 0 !important;
+        color: #222 !important;
+        background: #f5f5f5 !important;
+        border-bottom: 2.5px solid #111 !important;
       }
       .bingo-grid div,
       .logo-cell {
@@ -190,7 +256,7 @@
   <div id="bingoCards"></div>
 
   <script>
-    // DJ Dick Jones Logo URL from your new link
+    // DJ Dick Jones Logo URL
     const DJ_LOGO_URL = "https://images.squarespace-cdn.com/content/v1/666f164fcfe7c243e8b68db2/ff9923f0-8f75-495c-a902-853ae8c706aa/logo.png";
 
     const savedPlaylists = JSON.parse(localStorage.getItem('playlists') || '{}');
@@ -210,6 +276,19 @@
       const shuffled = [...songs].sort(() => 0.5 - Math.random()).slice(0, 24);
       shuffled.splice(12, 0, '__LOGO__'); // Insert logo placeholder at free space
       return shuffled;
+    }
+
+    function appendBingoHeaderRow(cardDiv) {
+      // Bingo column headers (B I N G O)
+      const bingoHeader = document.createElement('div');
+      bingoHeader.className = 'bingo-header-row';
+      ['B', 'I', 'N', 'G', 'O'].forEach(letter => {
+        const letterCell = document.createElement('div');
+        letterCell.className = 'bingo-header-cell';
+        letterCell.textContent = letter;
+        bingoHeader.appendChild(letterCell);
+      });
+      cardDiv.appendChild(bingoHeader);
     }
 
     function generateBingoCards() {
@@ -234,10 +313,32 @@
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
 
-        const title = document.createElement('h2');
+        // Playlist title
+        const title = document.createElement('div');
+        title.className = 'card-title';
         title.textContent = playlistName;
         cardDiv.appendChild(title);
 
+        // Horizontal rule under title
+        const hr = document.createElement('hr');
+        hr.className = 'card-title-hr';
+        cardDiv.appendChild(hr);
+
+        // Rockstar (left offset)
+        const rockstarRow = document.createElement('div');
+        rockstarRow.className = 'rockstar-row';
+
+        const rockstar = document.createElement('span');
+        rockstar.className = 'rockstar-label';
+        rockstar.textContent = 'rockstar';
+        rockstarRow.appendChild(rockstar);
+
+        cardDiv.appendChild(rockstarRow);
+
+        // BINGO column header row
+        appendBingoHeaderRow(cardDiv);
+
+        // Bingo Grid
         const grid = document.createElement('div');
         grid.className = 'bingo-grid';
 
@@ -258,6 +359,7 @@
 
         cardDiv.appendChild(grid);
 
+        // Contact Info
         const contactInfo = document.createElement('div');
         contactInfo.className = 'contact-info';
         contactInfo.innerHTML = `
@@ -312,9 +414,25 @@
       playlist.cards.forEach(card => {
         const cardDiv = document.createElement('div');
         cardDiv.className = 'card';
-        const title = document.createElement('h2');
+
+        const title = document.createElement('div');
+        title.className = 'card-title';
         title.textContent = name;
         cardDiv.appendChild(title);
+
+        const hr = document.createElement('hr');
+        hr.className = 'card-title-hr';
+        cardDiv.appendChild(hr);
+
+        const rockstarRow = document.createElement('div');
+        rockstarRow.className = 'rockstar-row';
+        const rockstar = document.createElement('span');
+        rockstar.className = 'rockstar-label';
+        rockstar.textContent = 'rockstar';
+        rockstarRow.appendChild(rockstar);
+        cardDiv.appendChild(rockstarRow);
+
+        appendBingoHeaderRow(cardDiv);
 
         const grid = document.createElement('div');
         grid.className = 'bingo-grid';
