@@ -57,7 +57,7 @@
     .rockstar-label {
       font-size: 1.3em;
       font-weight: bold;
-      color: #a600ff;
+      color: #fff; /* was purple, now white */
       letter-spacing: 2px;
       text-transform: uppercase;
       margin-bottom: 0.08em;
@@ -80,7 +80,7 @@
       color: #fff;
       padding: 2px 0 2px 0;
       letter-spacing: 0.1em;
-      border-bottom: 2.5px solid #a600ff;
+      border-bottom: 2.5px solid #fff;
       background: #181818;
     }
     .bingo-grid {
@@ -90,7 +90,7 @@
       margin-top: 10px;
     }
     .bingo-grid div {
-      border: 1px solid #a600ff;
+      border: 1px solid #fff;
       padding: 6px;
       font-size: 11px;
       line-height: 1.2em;
@@ -107,7 +107,7 @@
     .logo-cell {
       background: #222;
       color: #fff;
-      border: 2px solid #a600ff;
+      border: 2px solid #fff;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -123,13 +123,13 @@
       max-width: 90%;
       max-height: 28px;
       object-fit: contain;
-      filter: brightness(0) invert(1) drop-shadow(0 0 6px #a600ff);
+      filter: brightness(0) invert(1); /* pure white logo */
     }
     .contact-info {
       margin-top: 15px;
       font-size: 16px;
       color: #fff;
-      border-top: 1px solid #a600ff;
+      border-top: 1px solid #fff;
       padding-top: 10px;
       text-align: center;
       width: 100%;
@@ -139,8 +139,8 @@
       letter-spacing: 0.5px;
     }
     .contact-info a {
-      color: #a600ff;
-      text-decoration: none;
+      color: #fff;
+      text-decoration: underline;
       word-break: break-word;
       font-weight: bold;
     }
@@ -197,7 +197,7 @@
         font-size: 1.6em !important;
         margin-left: 4px !important;
         margin-bottom: 0.06em !important;
-        color: #a600ff !important;
+        color: #000 !important;
       }
       .bingo-header-cell {
         font-size: 2em !important;
